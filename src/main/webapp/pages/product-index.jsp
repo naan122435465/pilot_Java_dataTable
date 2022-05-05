@@ -40,7 +40,7 @@
 				<button type = "button" class="btn btn-primary" id = "keySearch"> Search</button>
 			</div>
 		</div>
-		<table class="table table-bordered" id="productInfoTable">
+		<table class="table table-bordered hover order-column" id="productInfoTable">
 			<thead>
 				<tr class="text-center">
 					<th scope="col">ID</th>
@@ -154,7 +154,27 @@
 			</div>
 		</div>
 	</div>
-	<jsp:include page="../common/footer.jsp" />
+	
+	<!-- Modal Img Product-->
+	<div class="modal fade" id="imgModal">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					
+					<button type="button" class="close" data-bs-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<img class="modal-content" id="img01" src="#"  >
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+<jsp:include page="../common/footer.jsp" />
 <script src="<c:url value='/js/product.js'/>"></script>
    
 

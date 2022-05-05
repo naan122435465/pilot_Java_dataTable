@@ -50,11 +50,13 @@ public class ProductController {
 			return "redirect:/product";
 		}
 	}
+
 	@GetMapping("/api/find")
 	@ResponseBody
 	public ResponseDataModel findProductByIdApi(@RequestParam("id") Long productId) {
 		return productService.findByProductIdApi(productId);
 	}
+
 	@PostMapping(value = { "/update" })
 	public String update(@ModelAttribute ProductEntity productEntity, RedirectAttributes redirectAttributes) {
 		ProductEntity productEntityUpdate = productService.update(productEntity);
@@ -97,17 +99,17 @@ public class ProductController {
 			@PathVariable("pageNumber") int pageNumber) {
 		return productService.searchWithConditions(searchConditions, pageNumber);
 	}
-	
-	@GetMapping(value = {"/api/brandList"})
+
+	@GetMapping(value = { "/api/brandList" })
 	@ResponseBody
 	public ResponseDataModel brandList() {
 		return brandService.getAllApi();
 	}
-	
-	@PostMapping(value = {"api/productList"})
+
+	@PostMapping(value = { "api/productList" })
 	@ResponseBody
-	public Map<String, Object> productList (@RequestBody Map<String, Object> conditionsMap) {
+	public Map<String, Object> productList(@RequestBody Map<String, Object> conditionsMap) {
 		return productService.findAllApi(conditionsMap);
-		
+
 	}
 }

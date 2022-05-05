@@ -4,11 +4,13 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.training.model.ResponseDataModel;
@@ -26,8 +28,12 @@ public class IndexController {
 
 	@GetMapping(value = { "/home" })
 	public String homePage() {
-		return "homePage";
+		return "indexPage";
 	}
+//	@GetMapping(value = { "/home" })
+//	public String homePage() {
+//		return "homePage";
+//	}
 	
 	@GetMapping(value = {"login"})
 	public String login() {
@@ -40,4 +46,29 @@ public class IndexController {
 			@PathVariable("pageNumber") int pageNumber) {
 		return productService.searchWithConditionsWeb(searchConditions, pageNumber);
 	}
+	
+	@GetMapping(value = "api/getTop10NewProducts")
+	@ResponseBody
+	public ResponseDataModel getMethodName() {
+		return productService.findTopNewProducts();
+	}
+	@GetMapping(value = "shop")
+	public String shopPage() {
+		return "shop";
+	}
+	
+	@GetMapping(value = { "productDetails"})
+	public String productDetails() {
+		return "productDetails";
+	}
+	@GetMapping(value = { "shoppingCart"})
+	public String shoppingCart() {
+		return "shoppingCart";
+	}
+	@GetMapping(value = { "productDetailsApi"})
+	@ResponseBody
+	public ResponseDataModel productDetailsApi(@RequestParam(name = "id") Long Id) {
+		return productService.findByProductIdApi(Id);
+	}
+	
 }

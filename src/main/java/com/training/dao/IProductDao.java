@@ -16,5 +16,4 @@ public interface IProductDao extends JpaRepository<ProductEntity, Long>, JpaSpec
 	ProductEntity findByProductName(String productName);
 
 	List<ProductEntity> findAllByOrderByProductId();
-	
 }

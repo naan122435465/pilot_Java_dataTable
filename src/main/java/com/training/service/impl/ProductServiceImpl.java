@@ -97,7 +97,7 @@ public class ProductServiceImpl implements IProductService {
 			responseCode = Constants.RESULT_CD_SUCCESS;
 		} catch (Exception e) {
 			responseMsg = e.getMessage();
-			LOGGER.error("Error when get all brand: ", e);
+			LOGGER.error("Error when get all Product: ", e);
 		}
 
 		return new ResponseDataModel(responseCode, responseMsg, responseMap);
@@ -121,7 +121,7 @@ public class ProductServiceImpl implements IProductService {
 			responseCode = Constants.RESULT_CD_SUCCESS;
 		} catch (Exception e) {
 			responseMsg = e.getMessage();
-			LOGGER.error("Error when get all brand: ", e);
+			LOGGER.error("Error when get all Product: ", e);
 		}
 
 		return new ResponseDataModel(responseCode, responseMsg, responseMap);
@@ -180,9 +180,8 @@ public class ProductServiceImpl implements IProductService {
 			responseCode = Constants.RESULT_CD_SUCCESS;
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			responseMsg = " Error when adding product";
-			LOGGER.error("Error when adding product : ", e);
+			responseMsg = " Error when update product";
+			LOGGER.error("Error when update product : ", e);
 		}
 		return new ResponseDataModel(responseCode, responseMsg);
 	}
@@ -251,7 +250,7 @@ public class ProductServiceImpl implements IProductService {
 
 	@Override
 	public ResponseDataModel findAllWithPagerApi(int pageNumber) {
-		// TODO Auto-generated method stub
+
 		int responseCode = Constants.RESULT_CD_FAIL;
 		String responseMsg = StringUtils.EMPTY;
 		Map<String, Object> responseMap = new HashMap();
@@ -272,7 +271,6 @@ public class ProductServiceImpl implements IProductService {
 
 	@Override
 	public Map<String, Object> findAllApi(Map<String, Object> conditionMap) {
-		// TODO Auto-generated method stub
 
 		int responseCode = Constants.RESULT_CD_FAIL;
 		String responseMsg = StringUtils.EMPTY;
@@ -301,18 +299,18 @@ public class ProductServiceImpl implements IProductService {
 			iSortColumn = "saleDate";
 			break;
 		}
-		Map<String, Object> seachCondition = new HashMap<>();
-		seachCondition.put("priceFrom", conditionMap.get("priceFrom"));
-		seachCondition.put("priceTo", conditionMap.get("priceTo"));
-		seachCondition.put("keyword", conditionMap.get("keyword"));
+//		Map<String, Object> seachCondition = new HashMap<>();
+//		seachCondition.put("priceFrom", conditionMap.get("priceFrom"));
+//		seachCondition.put("priceTo", conditionMap.get("priceTo"));
+//		seachCondition.put("keyword", conditionMap.get("keyword"));
 		
 		List<ProductEntity> productEntities = productDao
 				.findAll(ProductJpaSpecification.getSearchCriteria(conditionMap));
 		try {
 
-			Sort sortInfo =  Sort.by(Sort.Direction.DESC, iSortColumn);
-			if(sSortDir.equals("asc")) {
-				sortInfo =  Sort.by(Sort.Direction.ASC, iSortColumn) ;
+			Sort sortInfo = Sort.by(Sort.Direction.DESC, iSortColumn);
+			if ("asc".equals(sSortDir)) {
+				sortInfo = Sort.by(Sort.Direction.ASC, iSortColumn);
 			}
 			Pageable pageable = PageRequest.of(pageNumber , pageSize, sortInfo);
 			Page<ProductEntity> productEntitiesPage = productDao
@@ -321,7 +319,7 @@ public class ProductServiceImpl implements IProductService {
 			responseCode = Constants.RESULT_CD_SUCCESS;
 		} catch (Exception e) {
 			responseMsg = e.getMessage();
-			LOGGER.error("Error when get all brand: ", e);
+			LOGGER.error("Error when get all Product: ", e);
 		}
 
 		responseMap.put("responseCode", responseCode);
@@ -329,8 +327,28 @@ public class ProductServiceImpl implements IProductService {
 		responseMap.put("recordsFiltered", productEntities.size());
 		responseMap.put("recordsTotal", productEntities.size());
 		responseMap.put("draw", (int) conditionMap.get("draw"));
-		System.out.println(seachCondition);
 		return responseMap;
 	}
+
+	@Override
+	public ResponseDataModel findTopNewProducts() {
+		int responseCode = Constants.RESULT_CD_FAIL;
+		String responseMsg = StringUtils.EMPTY;
+		Map<String, Object> responseMap = new HashMap();
+		try {
+			Sort sortInfo = Sort.by(Sort.Direction.DESC, "saleDate");
+			Pageable pageable = PageRequest.of(0 , Constants.PAGE_TOP_PRODUCT, sortInfo);
+			Page<ProductEntity> productEntitiesPage = productDao.findAll(pageable);
+			responseMap.put("productList", productEntitiesPage.getContent());
+			responseCode = Constants.RESULT_CD_SUCCESS;
+		} catch (Exception e) {
+			// TODO: handle exception
+			responseMsg = e.getMessage();
+			LOGGER.error("Error when get top 10 new product: ", e);
+		}
+		return new ResponseDataModel(responseCode, responseMsg, responseMap);
+	}
+
+	
 
 }

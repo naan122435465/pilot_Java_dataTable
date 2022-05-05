@@ -1,0 +1,39 @@
+
+#information{
+	width: 60%;
+}
+#information input{
+    padding: 10px 20px;
+    outline: none;
+    width:80%;
+    margin-right: 10px;
+    border: 1px solid #e2e9e1;
+}
+#information td:nth-child(1){
+    width:20%;
+}
+#subtotalShopping{
+    width:40%;
+    margin-bottom: 30px;
+    border: 1px solid #e2e9e1;
+    padding: 10px;
+}
+#subtotalShopping table{
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+#subtotalShopping table td{
+    width: 50%;
+    border: 1px solid #e2e9e1;
+    padding: 10px;
+    font-size: 13px;
+}
+
+#subtotalShopping button{
+    background-color: #088178;
+    color:#fff;
+    padding: 12px 20px;
+
+}

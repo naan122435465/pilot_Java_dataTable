@@ -41,7 +41,7 @@ select {
 	width : 300px; 
 }
 .row{
-    margin-bottom : 20px;
+    margin-bottom : 5px;
     margin-left: -30px;
 }
 #keySearch {
@@ -53,7 +53,12 @@ label{
 }
 .table {
 	border-radius: 5px !important;
+	 margin-top: 22px !important;
 }
-.dataTables_length {
-	margin-bottom :20 px !important;
+.dataTables_wrapper .dataTables_length {
+	margin-bottom : 15px !important;
+	
+}
+.dataTables_wrapper .dataTables_length select {
+	width: 100px;
 }

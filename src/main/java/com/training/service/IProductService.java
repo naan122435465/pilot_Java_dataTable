@@ -30,5 +30,7 @@ public interface IProductService {
 	ResponseDataModel findAllWithPagerApi(int pageNumber);
 	
 	Map<String, Object> findAllApi(Map<String, Object> conditionsMap);
-
+	
+	ResponseDataModel findTopNewProducts();
+	
 }

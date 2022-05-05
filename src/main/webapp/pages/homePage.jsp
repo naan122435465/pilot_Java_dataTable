@@ -38,14 +38,14 @@
 		<div class="col1 brand">
 
 			<select type="button" class="btn  aria-expanded="false" id="brandName" name = "brandName"">
-				 <option selected="selected" disabled="disabled" value = "" >Hãng</option>
+				 <option selected="selected"  value = "" >Hãng</option>
 
 			</select>
 		</div>
 		<div class="col1 price">
 
 			<select type="button" class="btn   aria-expanded="false" id="price">
-				<option selected="selected" disabled="disabled" value = "">Giá</option>
+				<option selected="selected" value = "">Giá</option>
 				<option  data-priceFrom=""
 					data-priceTo="2000000">Dưới 2 triệu</option>
 				<option  data-priceFrom="2000000"
@@ -99,9 +99,9 @@
 
 
 
-
+	<jsp:include page="../common/footerWeb.jsp" />
 	<jsp:include page="../common/footer.jsp" />
-
 	<script src="<c:url value='/js/homePage.js'/>"></script>
+	<script src="<c:url value='/js/baseWeb.js'/>"></script>
 </body>
 </html>

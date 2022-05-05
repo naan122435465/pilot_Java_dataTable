@@ -1,8 +1,5 @@
 package com.training.entity;
 
-
-
-
 import java.sql.Date;
 
 import javax.persistence.Basic;
@@ -41,7 +38,7 @@ public class ProductEntity {
 	private Double price;
 
 	@Column(name = "SALE_DATE")
-	private Date  saleDate;
+	private Date saleDate;
 
 	@Column(name = "IMAGE")
 	private String image;
@@ -56,10 +53,21 @@ public class ProductEntity {
 	@Transient
 	private MultipartFile[] imageFiles;
 
-	
 	@Transient
 	private String saleDateFormat;
-	
+
+	public ProductEntity(Long productId, String productName, Double price, String image) {
+		super();
+		this.productId = productId;
+		this.productName = productName;
+		this.price = price;
+		this.image = image;
+	}
+
+	public ProductEntity() {
+
+	}
+
 	/**
 	 * @return the productId
 	 */
@@ -190,8 +198,21 @@ public class ProductEntity {
 		return CommonUtil.cvDateToString(saleDate, "dd-MM-yyyy");
 	}
 
-	
-	
-	
-	
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
+
+		ProductEntity product = (ProductEntity) o;
+
+		return productId.equals(product.productId);
+	}
+
+	@Override
+	public int hashCode() {
+		return productId.hashCode();
+	}
+
 }
