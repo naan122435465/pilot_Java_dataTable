@@ -106,7 +106,7 @@ public class ProductController {
 		return brandService.getAllApi();
 	}
 
-	@PostMapping(value = { "api/productList" })
+	@PostMapping(value = { "/api/productList" })
 	@ResponseBody
 	public Map<String, Object> productList(@RequestBody Map<String, Object> conditionsMap) {
 		return productService.findAllApi(conditionsMap);

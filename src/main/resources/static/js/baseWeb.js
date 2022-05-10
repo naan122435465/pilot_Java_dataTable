@@ -75,9 +75,9 @@ function renderShoppingCart(cartList){
 	var total = 0;
 	$('#cartRow').empty();
 	$.each(cartList, function(key, value){
-		
+		console.log(value);
 		var price = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value.productEntity.price);
-		var subtotal = value.productEntity.price * value.quality;
+		var subtotal = value.productEntity.price * value.quantity;
 		var subtotalConvert = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(subtotal);
 		total += subtotal;
 		rowHtml = '<tr id="'+ value.productEntity.productId +'">'+
@@ -86,7 +86,7 @@ function renderShoppingCart(cartList){
 					'<p>'+value.productEntity.productName+'</p>'+
 					'</td>'+					
 					'<td>'+price+'</td>'+
-					'<td><input type="number" value="'+value.quality +'" min="0"  ></td>'+
+					'<td><input type="number" value="'+value.quantity +'" min="0"  ></td>'+
 					'<td>'+subtotalConvert+'</td>'+
 				'</tr>';
 		$('#cartRow').append(rowHtml);

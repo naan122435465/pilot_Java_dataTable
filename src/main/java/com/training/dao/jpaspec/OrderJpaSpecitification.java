@@ -10,6 +10,8 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
+
+import com.training.common.util.CommonUtil;
 import com.training.entity.OrdersEntity;
 
 public class OrderJpaSpecitification {
@@ -35,7 +37,7 @@ public class OrderJpaSpecitification {
 					// Keyword Predicate
 					if (StringUtils.isNotEmpty(keyword)) {
 						predicates.add(criteriaBuilder.or(
-								criteriaBuilder.like(orderRoot.get("customerAdress"), "%" + keyword + "%"),
+								criteriaBuilder.like(orderRoot.get("customerAddress"), "%" + keyword + "%"),
 								criteriaBuilder.like(orderRoot.get("customerEmail"), "%" + keyword + "%"),
 								criteriaBuilder.like(orderRoot.get("customerName"), "%" + keyword + "%"),
 								criteriaBuilder.like(orderRoot.get("customerPhone"), "%" + keyword + "%")));
@@ -43,11 +45,11 @@ public class OrderJpaSpecitification {
 					// Date From Predicate
 					if (StringUtils.isNotEmpty(dateFrom)) {
 						predicates.add(
-								criteriaBuilder.greaterThanOrEqualTo(orderRoot.get("orderDate"), Date.parse(dateFrom)));
+								criteriaBuilder.greaterThanOrEqualTo(orderRoot.get("orderDate"), CommonUtil.cvStringToDate(dateFrom, "yyyy-MM-dd")));
 					}
 					if (StringUtils.isNotEmpty(dateTo)) {
 						predicates
-								.add(criteriaBuilder.lessThanOrEqualTo(orderRoot.get("orderDate"), Date.parse(dateTo)));
+								.add(criteriaBuilder.lessThanOrEqualTo(orderRoot.get("orderDate"), CommonUtil.cvStringToDate(dateFrom, "yyyy-MM-dd")));
 					}
 				}
 				return criteriaBuilder.and(predicates.toArray(new Predicate[predicates.size()]));

@@ -68,7 +68,7 @@ function productDeatails(id) {
 */
 function findTop10NewProduct() {
 	$.ajax({
-		url: "/api/getTop10NewProducts",
+		url: "/api/get10RandomProducts",
 		dataType: 'json',
 		contentType: 'application/json',
 		success: function(responseData) {

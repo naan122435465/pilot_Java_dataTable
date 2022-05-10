@@ -349,6 +349,23 @@ public class ProductServiceImpl implements IProductService {
 		return new ResponseDataModel(responseCode, responseMsg, responseMap);
 	}
 
+	@Override
+	public ResponseDataModel getRandom10ProductsEntities() {
+		int responseCode = Constants.RESULT_CD_FAIL;
+		String responseMsg = StringUtils.EMPTY;
+		Map<String, Object> responseMap = new HashMap();
+		try {
+			List<ProductEntity> productList = productDao.getRandomProductsEntities(10);
+			responseMap.put("productList", productList);
+			responseCode = Constants.RESULT_CD_SUCCESS;
+		} catch (Exception e) {
+			// TODO: handle exception
+			responseMsg = e.getMessage();
+			LOGGER.error("Error when get top 10 new product: ", e);
+		}
+		return new ResponseDataModel(responseCode, responseMsg, responseMap);
+	}
+
 	
 
 }

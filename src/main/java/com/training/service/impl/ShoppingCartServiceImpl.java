@@ -135,6 +135,7 @@ public class ShoppingCartServiceImpl implements IShoppingCartService {
 	public ResponseDataModel checkout(Map<ProductEntity, Integer> carts, OrdersEntity orderEntity) {
 		int responseCode = Constants.RESULT_CD_FAIL;
 		String responseMsg = StringUtils.EMPTY;
+		Map<String, Object> responseMap = new HashMap<>();
 		List<OrderDetailsEntity> orderDetailsSet = new ArrayList();
 		try {			
 			orderEntity.setOrderDate(Date.valueOf(LocalDate.now()));
@@ -159,13 +160,15 @@ public class ShoppingCartServiceImpl implements IShoppingCartService {
 			this.carts.clear();
 			responseCode = Constants.RESULT_CD_SUCCESS;
 			responseMsg = "Order is successfully";
+			responseMap.put("orderDetails", orderDetailsSet);
+			responseMap.put("orders", orderEntity);
 			
 		} catch (Exception e) {
 			responseMsg = " Error when create Order ";
 			LOGGER.error("Error when create Order : ", e);
 		}
 		
-		return new ResponseDataModel(responseCode, responseMsg);
+		return new ResponseDataModel(responseCode, responseMsg,responseMap);
 	}
 
 	@Override

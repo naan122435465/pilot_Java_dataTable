@@ -12,6 +12,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.training.common.constant.Constants;
 import com.training.dao.IOrderDao;
@@ -21,6 +23,8 @@ import com.training.entity.OrdersEntity;
 import com.training.model.ResponseDataModel;
 import com.training.service.IOrderService;
 
+@Service
+@Transactional
 public class OrderServiceImpl implements IOrderService {
 	private final Logger LOGGER = LoggerFactory.getLogger(getClass());
 	@Autowired
@@ -29,10 +33,12 @@ public class OrderServiceImpl implements IOrderService {
 	IOrderDetailsDao orderDetailsDao;
 
 	@Override
-	public ResponseDataModel updateApi(OrdersEntity orderEntity) {
+	public ResponseDataModel updateApi(long id,int orderStatus) {
 		int responseCode = Constants.RESULT_CD_FAIL;
 		String responseMsg = StringUtils.EMPTY;
 		try {
+			OrdersEntity orderEntity =  orderDao.findByOrderId(id);
+			orderEntity.setOrderStatus(orderStatus);
 			orderDao.saveAndFlush(orderEntity);
 			responseMsg = "Orders is update Successfully";
 			responseCode = Constants.RESULT_CD_SUCCESS;
@@ -77,18 +83,27 @@ public class OrderServiceImpl implements IOrderService {
 		String iSortColumn = "orderId";
 		switch (iSortNum) {
 		case 0:
-			break;
+
 		case 1:
-			iSortColumn = "amount";
+			iSortColumn = "customerName";
 			break;
 		case 2:
-			iSortColumn = "orderDate";
+			iSortColumn = "customerPhone";
 			break;
 		case 3:
-			iSortColumn = "customerAdress";
+			iSortColumn = "customerAddress";
 			break;
 		case 4:
-			iSortColumn = "customerName";
+			iSortColumn = "customerEmail";
+			break;
+		case 5:
+			iSortColumn = "orderDate";
+			break;
+		case 6:
+			iSortColumn = "amount";
+			break;
+		case 7:
+			iSortColumn = "orderStatus";
 			break;
 		}
 		List<OrdersEntity> ordersEntities = orderDao.findAll(OrderJpaSpecitification.getSearchCriteria(conditionMap));
@@ -96,12 +111,13 @@ public class OrderServiceImpl implements IOrderService {
 			Sort sortInfo = Sort.by(Sort.Direction.DESC, iSortColumn);
 			if ("asc".equals(sSortDir)) {
 				sortInfo = Sort.by(Sort.Direction.ASC, iSortColumn);
-				Pageable pageable = PageRequest.of(pageNumber, pageSize, sortInfo);
-				Page<OrdersEntity> orderEntityPage = orderDao
-						.findAll(OrderJpaSpecitification.getSearchCriteria(conditionMap), pageable);
-				responseMap.put("data", orderEntityPage.getContent());
-				responseCode = Constants.RESULT_CD_SUCCESS;
 			}
+			Pageable pageable = PageRequest.of(pageNumber, pageSize, sortInfo);
+			Page<OrdersEntity> orderEntityPage = orderDao
+					.findAll(OrderJpaSpecitification.getSearchCriteria(conditionMap), pageable);
+			responseMap.put("data", orderEntityPage.getContent());
+			responseCode = Constants.RESULT_CD_SUCCESS;
+
 		} catch (Exception e) {
 			responseMsg = e.getMessage();
 			LOGGER.error("Error when get all Orders: ", e);

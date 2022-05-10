@@ -158,14 +158,14 @@
 	<section id="banner" class="section-p1">
 		<h4>Repair Services</h4>
 		<h2>
-			Up to <span>70% Off</span> All t-Shirts & Accessories
+			Up to <span>70% Off</span> All Smart Phone Accessories
 		</h2>
 		<button class="normal">Explore More</button>
 	</section>
 	<section id="product1" class="section-p1">
 		<h2>New Arrivals</h2>
 		<p>Summer Collection New Morden Design</p>
-		<div class="pro-container">
+		<div class="pro-container" id ="random10Product">
 			<div class="pro">
 				<img src="images/product1.jpg" alt="">
 				<div class="des">

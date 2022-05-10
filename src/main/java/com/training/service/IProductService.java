@@ -33,4 +33,6 @@ public interface IProductService {
 	
 	ResponseDataModel findTopNewProducts();
 	
+	ResponseDataModel getRandom10ProductsEntities();
+	
 }

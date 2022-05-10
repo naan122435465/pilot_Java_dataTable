@@ -1,6 +1,8 @@
 package com.training.entity;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -24,10 +26,10 @@ public class OrdersEntity {
 	@Column(name = "Order_Id", nullable = false)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long orderId;
-	
+
 	@Column(name = "AMOUNT", nullable = false)
 	private double amount;
-	
+
 	@Column(name = "CUSTOMER_ADDRESS", nullable = false)
 	private String customerAddress;
 
@@ -43,95 +45,90 @@ public class OrdersEntity {
 	@Column(name = "ORDER_DATE", nullable = false)
 	private Date orderDate;
 	
+	@Column(name = "ORDER_STATUS", nullable = false)
+	private int orderStatus;
+
 	@Transient
 	private String saleDateFormat;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "ordersEntity", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "ordersEntity")
 	private Set<OrderDetailsEntity> orderDetailsSet;
-	
+
 	public Long getOrderId() {
 		return orderId;
 	}
-
 
 	public void setOrderId(Long orderId) {
 		this.orderId = orderId;
 	}
 
-
 	public double getAmount() {
 		return amount;
 	}
-
 
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
 
-
 	public String getCustomerAddress() {
 		return customerAddress;
 	}
-
 
 	public void setCustomerAddress(String customerAddress) {
 		this.customerAddress = customerAddress;
 	}
 
-
 	public String getCustomerEmail() {
 		return customerEmail;
 	}
-
 
 	public void setCustomerEmail(String customerEmail) {
 		this.customerEmail = customerEmail;
 	}
 
-
 	public String getCustomerName() {
 		return customerName;
 	}
-
 
 	public void setCustomerName(String customerName) {
 		this.customerName = customerName;
 	}
 
-
 	public String getCustomerPhone() {
 		return customerPhone;
 	}
-
 
 	public void setCustomerPhone(String customerPhone) {
 		this.customerPhone = customerPhone;
 	}
 
-
 	public Date getOrderDate() {
 		return orderDate;
 	}
-
 
 	public void setOrderDate(Date orderDate) {
 		this.orderDate = orderDate;
 	}
 
-
 	public String getSaleDateFormat() {
 		return CommonUtil.cvDateToString(orderDate, "dd-MM-yyyy");
 	}
-
 
 	public Set<OrderDetailsEntity> getOrderDetailsSet() {
 		return orderDetailsSet;
 	}
 
-
 	public void setOrderDetailsSet(Set<OrderDetailsEntity> orderDetailsSet) {
 		this.orderDetailsSet = orderDetailsSet;
-	};
+	}
+
+	public int getOrderStatus() {
+		return orderStatus;
+	}
+
+	public void setOrderStatus(int orderStatus) {
+		this.orderStatus = orderStatus;
+	}
 
 }

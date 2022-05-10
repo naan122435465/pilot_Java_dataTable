@@ -37,8 +37,7 @@
 							<thead>
 								<tr>
 									<td>Remove</td>
-									<td>Image</td>
-									<td>Product</td>
+									<td colspan="2">Product</td>
 									<td>Price</td>
 									<td>Quantity</td>
 									<td>Subtotal</td>

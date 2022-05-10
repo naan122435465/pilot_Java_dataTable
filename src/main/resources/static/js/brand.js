@@ -1,5 +1,5 @@
 $(document).ready(function() {
-
+	$('#navbar').children(':nth-child(2)').children().attr("class","active");
 	// Show brands list when opening page
 	findAllBrands(1);
 

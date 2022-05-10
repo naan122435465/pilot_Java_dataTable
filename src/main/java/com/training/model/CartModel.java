@@ -9,7 +9,7 @@ public class CartModel {
 	public CartModel(ProductEntity productEntity, int quantity) {
 		super();
 		this.productEntity = productEntity;
-		this.quantity = quantity;
+		this.setQuantity(quantity);
 	}
 	public ProductEntity getProductEntity() {
 		return productEntity;
@@ -17,11 +17,12 @@ public class CartModel {
 	public void setProductEntity(ProductEntity productEntity) {
 		this.productEntity = productEntity;
 	}
-	public int getQuality() {
+	public int getQuantity() {
 		return quantity;
 	}
-	public void setQuality(int quantity) {
+	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
+	
 	
 }

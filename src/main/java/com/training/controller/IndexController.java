@@ -49,9 +49,15 @@ public class IndexController {
 	
 	@GetMapping(value = "api/getTop10NewProducts")
 	@ResponseBody
-	public ResponseDataModel getMethodName() {
+	public ResponseDataModel getTop10NewProducts() {
 		return productService.findTopNewProducts();
 	}
+	@GetMapping(value = "api/get10RandomProducts")
+	@ResponseBody
+	public ResponseDataModel get10RandomProducts() {
+		return productService.getRandom10ProductsEntities();
+	}
+	
 	@GetMapping(value = "shop")
 	public String shopPage() {
 		return "shop";
@@ -70,5 +76,5 @@ public class IndexController {
 	public ResponseDataModel productDetailsApi(@RequestParam(name = "id") Long Id) {
 		return productService.findByProductIdApi(Id);
 	}
-	
+
 }

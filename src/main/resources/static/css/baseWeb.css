@@ -186,6 +186,7 @@ body {
 #cartModal table tbody tr td p{
 	font-size: 13px;
 	color:#222;
+	margin-top: 20px;
 }
 #cart-add{
     display: flex;

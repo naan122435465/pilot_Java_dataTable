@@ -1,0 +1,178 @@
+@charset "ISO-8859-1";
+header .main-logo {
+	font-size: 30px;
+    color: #fff;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding-top: 2px;
+}
+header .nav-link {
+	background-color: #fff;
+    margin-left: 8px;
+    margin-top: 4px;
+    width: 100px;
+    text-align: center;
+    font-weight: 600;
+    border-radius: 3px;
+    border: 1px solid;
+}
+header .nav-link.active {
+	background-color: black;
+	color: #fff;
+}
+
+.sub-header {
+	border: 1px solid #333;
+    border-radius: 5px;
+    height: 46px;
+    padding: 3px 3px;
+    background: #e9ecef;
+    color: #fff;
+    margin-bottom: 10px;
+}
+.sub-header .sub-title {
+	font-weight: 900;
+    color: #333;
+    padding-left: 20px;
+    font-size: 20px;
+    padding-top: 3px;
+}
+select {
+	width : 300px; 
+}
+.row{
+    margin-bottom : 5px;
+    margin-left: -30px;
+}
+#keySearch {
+	height : 40px;
+	margin-top : 22px;
+}
+label{
+	margin-bottom : 0px !important;
+}
+.table {
+	border-radius: 5px !important;
+	 margin-top: 22px !important;
+}
+.dataTables_wrapper .dataTables_length {
+	margin-bottom : 15px !important;
+	
+}
+.dataTables_wrapper .dataTables_length select {
+	width: 100px;
+}
+
+/** Cart modal*/
+.section-p1 {
+	padding: 40px 12%;
+}
+#cartModal table{
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    white-space: nowrap;
+}
+#cartModal table img{
+    width: 30%;
+}
+#cartModal table td:nth-child(1){
+    width:7%;
+    text-align: center;
+}
+
+#cartModal table td:nth-child(2){
+    width:20%;
+    text-align: center;
+}
+#cartModal table td:nth-child(3){
+    width:15%;
+    text-align: center;
+}
+#cartModal table td:nth-child(4),
+#cartModal table td:nth-child(5),
+#cartModal table td:nth-child(6){
+    width:15%;
+    text-align: center;
+}
+
+#cartModal table td:nth-child(5) input{
+    width:70px;
+    padding: 10px 5px 10px 15px;
+}
+
+#cartModal table thead{
+    border: 1px solid #e2e9e1;
+    border-left: none;
+    border-right: none;
+}
+
+#cartModal table thead td{
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 13px;
+    padding:18px 0;
+}
+
+#cartModal table tbody tr td{
+    padding-top: 15px;
+}
+
+#cartModal table tbody td{
+    font-size: 13px;
+
+}
+#cartModal table tbody tr td i{
+    color: rgb(128, 8, 8);
+}
+
+#cartModal table tbody tr td p{
+	font-size: 13px;
+	color:#222;
+	margin-top: 20px;
+}
+#subtotal{
+    width:60%;
+    margin-bottom: 30px;
+    border: 1px solid #e2e9e1;
+    padding: 10px;
+}
+#subtotal table{
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+#subtotal table td{
+    width: 50%;
+    border: 1px solid #e2e9e1;
+    padding: 10px;
+    font-size: 13px;
+}
+button.normal{
+    font-size:12px;
+    padding:3px 0px;
+    width: 80px;
+    color: #fff;
+    border-radius: 4px;
+    cursor:pointer;
+    border: none;
+    outline: none;
+    transition:0.2s;
+    text-align:  center;
+}
+#orderInfoTable tbody tr .btn-pedding {
+	background-color: #ffbd27;
+}
+#orderInfoTable tbody tr .btn-confirmed {
+	background-color: #088178;
+}
+#orderInfoTable tbody tr .btn-cancelled {
+	background-color: crimson;
+}
+.col{
+	padding-right:0px;
+}
+table.dataTable td button{
+	margin-left: 32px;
+}

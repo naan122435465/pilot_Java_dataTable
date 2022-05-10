@@ -33,9 +33,9 @@ public class OrderDetailsEntity {
 	@JoinColumn(name = "ORDER_ID", referencedColumnName = "ORDER_ID")
 	@ManyToOne(fetch = FetchType.EAGER)
 	private OrdersEntity ordersEntity;
-
-	@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")
+	
 	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")	
 	private ProductEntity productEntity;
 
 	

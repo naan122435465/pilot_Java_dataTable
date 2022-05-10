@@ -1,13 +1,12 @@
 
 $(document).ready(function() {
-
+	$('#navbar').children(':nth-child(1)').children().attr("class","active");
 	var $productInfoForm = $('#productInfoForm');
 	var $productInfoModal = $('#productInfoModal');
 	var $productTable;
 	// Show products list when opening page
 	searchProduct();
-	// Show products list when open edit/add product
-	brandList();
+
 	// Show products list when have searching even
 	$('#keyword').keyup(function() {
 		$productTable.destroy();
@@ -25,6 +24,8 @@ $(document).ready(function() {
 
 	// Show add product modal
 	$('#addProductInfoModal').on('click', function() {
+		// Show products list when open edit/add product
+		brandList();
 		resetFormModal($productInfoForm);
 		showModalWithCustomizedTitle($productInfoModal, "Add Product");
 		$('#image img').attr('src', '/images/image-demo.png');
@@ -34,12 +35,14 @@ $(document).ready(function() {
 
 	// Show update product modal
 	$("#productInfoTable").on('click', 'tbody tr .edit-btn', function() {
-
+		// Show products list when open edit/add product
+		brandList();
 		$("#productImage .required-mask").addClass("d-none");
 		resetFormModal($productInfoForm);
 		showModalWithCustomizedTitle($productInfoModal, "Edit Brand");
 		var $tr = $(this).closest('tr');
 		var dataRow = $productTable.row($tr).data();
+		console.log(dataRow);
 		$('#productId').val(dataRow.productId);
 		$('#productName').val(dataRow.productName);
 		$('#quantity').val(dataRow.quantity);
@@ -156,7 +159,7 @@ $(document).ready(function() {
 		}
 	});
 
-// get Product List
+	// get Product List
 	function searchProduct() {
 		$productTable = $('#productInfoTable').DataTable({
 			"processing": true,
@@ -217,7 +220,7 @@ $(document).ready(function() {
 					targets: 4,
 				},
 				{
-					data: 'saleDate',
+					data: 'saleDateFormat',
 					targets: 5,
 				},
 				{

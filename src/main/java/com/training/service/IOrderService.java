@@ -9,7 +9,7 @@ import com.training.model.ResponseDataModel;
 public interface IOrderService {
 
 	
-	ResponseDataModel updateApi(OrdersEntity orderEntity);
+	ResponseDataModel updateApi(long id,int orderStatus);
 	
 	ResponseDataModel deteleApi(Long orderId);
 	

@@ -1,4 +1,4 @@
-	var totalIndex;
+var totalIndex;
 $(document).ready(function() {
 	// Add class = active in the nav
 	$('#navbar').children(':nth-child(6)').children().attr("class","active");
@@ -7,7 +7,7 @@ $(document).ready(function() {
 
 	// Update quantity in Cart
 	$('#finalCart').on('change',' tr td input', function(){
-		console.log("update");
+	
 		var quantity = $(this).val()
 		var idrow =  $(this).closest('tr').attr('id')
 		$.ajax({
@@ -44,7 +44,6 @@ $(document).ready(function() {
 		var $customerInfo = $('#customerInfo');
 		var formData = new FormData($customerInfo[0]);
 		formData.append('amount',totalIndex);
-		console.log(totalIndex);
 		$.validator.addMethod(
 			"regex",
 			function(value, element, regexp) {
@@ -57,11 +56,11 @@ $(document).ready(function() {
 			rules: {
 				customerName: {
 					required: true,
-
+					regex:/[a-z]|[A-Z]/,
 				},
 				customerPhone: {
 					required: true,
-					regex: /^0+[0-9]{8}/,
+					regex: /^[0]{1}(3|[7-9]){1}[0-9]{8}$/,
 				},
 				customerEmail: {
 					required: true,
@@ -73,8 +72,9 @@ $(document).ready(function() {
 				}
 			},
 			messages: {
-				ccustomerName: {
+				customerName: {
 					required: "Please input Your Name",
+					regex: "Please input Your Name"
 
 				},
 				customerPhone: {
@@ -105,7 +105,9 @@ $(document).ready(function() {
 				success: function(responseData) {
 					if (responseData.responseCode == 100) {
 						showNotification(responseData.responseCode == 100, responseData.responseMsg);
-						window.location.href="http://localhost:8880/home";
+						renderOrderSuccessModal(responseData.data.orders,responseData.data.orderDetails);
+						console.log(responseData.data);
+						
 					}
 				}
 			});
@@ -124,7 +126,6 @@ function productInCartIndex() {
 		contentType: 'application/json',
 		success: function(responseData) {
 			if (responseData.responseCode == 100) {
-
 				renderShoppingCartIndex(responseData.data.cart);
 			}
 
@@ -134,13 +135,14 @@ function productInCartIndex() {
 
 // Render HTML For Shopping Cart
 function renderShoppingCartIndex(cartList) {
+	
 	var rowHtml = "";
 	totalIndex = 0;
 	$('#finalCart').empty();
 	$.each(cartList, function(key, value) {
-
+	console.log(value);
 		var price = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value.productEntity.price);
-		var subtotal = value.productEntity.price * value.quality;
+		var subtotal = value.productEntity.price * value.quantity;
 		var subtotalConvert = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(subtotal);
 		totalIndex += subtotal;
 		rowHtml = '<tr id="' + value.productEntity.productId + '">' +
@@ -148,7 +150,7 @@ function renderShoppingCartIndex(cartList) {
 			'<td><img src="' + value.productEntity.image + '" alt=""></td>' +
 			'<td>' + value.productEntity.productName + '</td>' +
 			'<td>' + price + '</td>' +
-			'<td><input type="number" value="' + value.quality + '" min="0"  ></td>' +
+			'<td><input type="number" value="' + value.quantity + '" min="0"  ></td>' +
 			'<td>' + subtotalConvert + '</td>' +
 			'</tr>';
 		$('#finalCart').append(rowHtml);
@@ -156,4 +158,33 @@ function renderShoppingCartIndex(cartList) {
 	var totalConvert = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(totalIndex);
 	$('#finalTotal1').text(totalConvert);
 	$('#finalTotal2').text(totalConvert);
+}
+
+// Render HTML For Order Success Modal
+function renderOrderSuccessModal(orders,orderDetails){
+	$('#orderSuccessModal').modal('show');
+	$('#customerNameOrderSuccess').val(orders.customerName);
+	$('#customerAddressOrderSuccess').val(orders.customerAddress);
+	$('#customerEmailOrderSuccess').val(orders.customerEmail);
+	$('#customerPhoneOrderSuccess').val(orders.customerPhone);
+	$('#orderDateOrderSuccess').val(orders.saleDateFormat);
+	var rowHtml = "";
+	$('#cartRowOrderSuccess').empty();
+	$.each(orderDetails, function(key, value) {
+		var price = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value.productEntity.price);
+		var subtotalConvert = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value.amount);
+		totalIndex += subtotal;
+		rowHtml = '<tr id="' + value.productEntity.productId + '">' +
+			'<td><i class="fa-solid fa-x"></i></i></td>' +
+			'<td colspan="2"><img src="'+value.productEntity.image+'" alt="">'+
+				'<p>'+value.productEntity.productName+'</p>'+
+			'</td>'+	
+			'<td>' + price + '</td>' +
+			'<td>'+ value.quanity +'</td>' +
+			'<td>' + subtotalConvert + '</td>' +
+			'</tr>';
+		$('#cartRowOrderSuccess').append(rowHtml);
+	})
+	var totalConvert = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(orders.amount);
+	$('#totalOrderSuccess').text(totalConvert);
 }
