@@ -5,10 +5,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -27,8 +25,7 @@ import com.training.entity.ProductEntity;
 import com.training.model.CartModel;
 import com.training.model.ResponseDataModel;
 import com.training.service.IShoppingCartService;
-
-import net.bytebuddy.asm.Advice.This;
+import com.training.service.MailService;
 
 @Service
 @Transactional
@@ -41,13 +38,15 @@ public class ShoppingCartServiceImpl implements IShoppingCartService {
 	IOrderDetailsDao orderDetailsDao;
 	@Autowired
 	IProductDao productDao;
+	@Autowired
+	MailService mailService;
 
 	@Override
 	public ResponseDataModel addProductInCart(long id, int quantity) {
 		int responseCode = Constants.RESULT_CD_FAIL;
 		String responseMsg = StringUtils.EMPTY;
-		//Map<String, Object> responseMap = new HashMap<>();
-	//	List<CartModel> cartList = new ArrayList();
+		// Map<String, Object> responseMap = new HashMap<>();
+		// List<CartModel> cartList = new ArrayList();
 		try {
 			ProductEntity productEntity = productDao.findByProductId(id);
 			if (productEntity != null) {
@@ -74,8 +73,8 @@ public class ShoppingCartServiceImpl implements IShoppingCartService {
 
 		int responseCode = Constants.RESULT_CD_FAIL;
 		String responseMsg = StringUtils.EMPTY;
-		//Map<String, Object> responseMap = new HashMap<>();
-		//List<CartModel> cartList = new ArrayList();
+		// Map<String, Object> responseMap = new HashMap<>();
+		// List<CartModel> cartList = new ArrayList();
 		try {
 			ProductEntity productEntity = productDao.findByProductId(id);
 			if (productEntity != null) {
@@ -137,7 +136,7 @@ public class ShoppingCartServiceImpl implements IShoppingCartService {
 		String responseMsg = StringUtils.EMPTY;
 		Map<String, Object> responseMap = new HashMap<>();
 		List<OrderDetailsEntity> orderDetailsSet = new ArrayList();
-		try {			
+		try {
 			orderEntity.setOrderDate(Date.valueOf(LocalDate.now()));
 			orderDao.saveAndFlush(orderEntity);
 			for (Map.Entry<ProductEntity, Integer> cart : carts.entrySet()) {
@@ -152,23 +151,24 @@ public class ShoppingCartServiceImpl implements IShoppingCartService {
 				orderDetailsEntity.setQuanity(quantity);
 				orderDetailsEntity.setProductEntity(productInCart);
 				orderDetailsSet.add(orderDetailsEntity);
-				
-				//orderDetailsDao.saveAndFlush(orderDetailsEntity);				
+
+				// orderDetailsDao.saveAndFlush(orderDetailsEntity);
 			}
 			orderDetailsDao.saveAll(orderDetailsSet);
 			orderDetailsDao.flush();
 			this.carts.clear();
+			mailService.sendHtmlMail(orderDetailsSet, orderEntity);
 			responseCode = Constants.RESULT_CD_SUCCESS;
 			responseMsg = "Order is successfully";
 			responseMap.put("orderDetails", orderDetailsSet);
 			responseMap.put("orders", orderEntity);
-			
+
 		} catch (Exception e) {
 			responseMsg = " Error when create Order ";
 			LOGGER.error("Error when create Order : ", e);
 		}
-		
-		return new ResponseDataModel(responseCode, responseMsg,responseMap);
+
+		return new ResponseDataModel(responseCode, responseMsg, responseMap);
 	}
 
 	@Override
