@@ -23,4 +23,10 @@ public class Constants {
 	public static final int RESULT_CD_FAIL = 0;
 	public static final int RESULT_CD_DUPL = 1;
 	public static final int RESULT_CD_SUCCESS = 100;
+	
+
+	/**Mail info*/
+	public static final String MAIL_FROM = "leeena12193@gmail.com";
+	public static final String MAIL_PASSWORD = "lena12193";
+	public static final String MAIL_TO = "lenak45a@gmail.com";
 }
