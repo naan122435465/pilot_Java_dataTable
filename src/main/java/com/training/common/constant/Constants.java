@@ -27,6 +27,6 @@ public class Constants {
 
 	/**Mail info*/
 	public static final String MAIL_FROM = "leeena12193@gmail.com";
-	public static final String MAIL_PASSWORD = "lena12193";
+	public static final String MAIL_PASSWORD = "";
 	public static final String MAIL_TO = "lenak45a@gmail.com";
 }
